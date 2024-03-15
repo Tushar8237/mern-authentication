@@ -5,9 +5,10 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url('./assets/netflix-cover.png');
-  background-size: cover;
-  width: 100%;
+  /* background-image: url('./assets/netflix-cover.png');
+  background-size: cover; */
+  /* width: 100%; */
+  background-color: rgb(44, 44, 44);
 }
 
 h2,

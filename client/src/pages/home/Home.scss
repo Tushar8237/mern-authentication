@@ -5,5 +5,50 @@
 .home_section {
     margin: 0 auto;
     max-width: 1440px;
-    padding: 5rem 0 0 2rem;
+    padding: 5rem 0 3rem 0rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .home_content_wrapper {
+       max-width: 750px;
+       background: rgba( 255, 255, 255, 0.3 );
+       box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+       backdrop-filter: blur( 6.5px );
+       -webkit-backdrop-filter: blur( 6.5px );
+       border-radius: 10px;
+       border: 1px solid rgba( 255, 255, 255, 0.18 );
+       padding: 2rem;
+
+       h1 {
+            text-align: center;
+            color: #fafad2;
+            font-size: 2rem;
+       }
+       p {
+        color: lightgray;
+        margin-bottom: 1rem;
+       }
+       h2 {
+        color: white;
+       }
+
+       ul {
+        li {
+            margin-bottom: 0.5rem;
+            color: rgb(227, 227, 227);
+        }
+       }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .home_section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        .home_content_wrapper {
+            padding: 1rem;
+        }
+    }
 }
