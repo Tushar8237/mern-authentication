@@ -4,6 +4,8 @@ import authRoute from './routes/auth.route.js'
 import userRoute from './routes/user.route.js'
 import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose';
+import path from 'path';
+
 
 dotenv.config()
 
@@ -12,6 +14,8 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 }).catch((err) => {
     console.log(err)
 })
+
+const __dirname = path.resolve();
 
 const app = express()
 app.use(express.json())
@@ -24,7 +28,11 @@ app.listen(process.env.PORT, () => {
 app.use('/api/auth', authRoute)
 app.use('/api/user', userRoute)
 
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500
