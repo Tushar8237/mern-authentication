@@ -8,8 +8,8 @@ import {
   signInSuccess,
 } from "../../../redux/user-slice/user";
 import axios from "axios";
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import OAuth from "../../../components/o-auth/OAuth";
 
 export default function SignIn() {
@@ -33,35 +33,41 @@ export default function SignIn() {
         email: formData.email,
         password: formData.password,
       });
-      if (response.data === false) {
-        toast.error(response.data.message)
-        dispatch(signInFailure(response.data));
-        return;
-      }
       dispatch(signInSuccess(response.data));
+      toast("Sign in successfully");
       navigate("/");
-
-      // console.log(response.data.message)
-      toast.success(response.data.message);
     } catch (error) {
-      dispatch(signInFailure(error));
+      if (error.response) {
+        const { status, data } = error.response;
+        if (status === 404) {
+          toast.error(data.message);
+        } else {
+          toast.error("An error occurred. Please try again later.");
+        }
+        dispatch(signInFailure(data));
+      } else if (error.request) {
+        toast.error("No response received from the server.");
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
+      toast("Sign in failed");
     }
   };
 
   return (
     <main className="signin_wrapper">
       <section className="signin_section">
-      <ToastContainer
-        position="top-center"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
         />
         <form onSubmit={handleSubmit}>
           <h2>Sign In</h2>
@@ -93,9 +99,11 @@ export default function SignIn() {
           </Link>
         </p>
 
-        <p style={{
-            color: "red"
-        }}>
+        <p
+          style={{
+            color: "red",
+          }}
+        >
           {error ? error.message || "Something went wrong!" : ""}
         </p>
       </section>

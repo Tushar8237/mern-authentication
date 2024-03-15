@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import OAuth from "../../../components/o-auth/OAuth";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
     const [formData, setFormData] = useState({
@@ -27,26 +28,41 @@ export default function SignUp() {
         try {
             setLoading(true);
             setError(false);
-            if(formData.username.trim() !== "" && formData.email.trim() !== "" && formData.password.trim() !== ""){
-                setErrorMessage("form fields cannot empty")
-            } 
+            // Check if form fields are empty
+            if (formData.username.trim() === "" || formData.email.trim() === "" || formData.password.trim() === "") {
+                setErrorMessage("Form fields cannot be empty");
+                return;
+            }
             const response = await axios.post('/api/auth/signup', {
                 username: formData.username,
                 email: formData.email,
                 password: formData.password
             });
-            
-            if(response.data === false){
-                setError(true)
-                return
+            if (response.data.success === false) {
+                setError(true);
+                return;
             }
-            console.log(response.data)
-            navigate("/sign-in");
+           navigate("/sign-in");
         } catch (error) {
-            console.log(error)
+            if (error.response) {
+                const { status, data } = error.response;
+                if (status === 400) {
+                    toast.error(data.message);
+                } else {
+                    toast.error("An error occurred. Please try again later.");
+                }
+                setErrorMessage(data);
+            } else if (error.request) {
+                toast.error("No response received from the server.");
+            } else {
+                toast.error("An unexpected error occurred.");
+            }
+            toast("create account failed");
+        } finally {
+            setLoading(false);
         }
     };
-
+    
     return (
         <main className="signin_wrapper">
             <section className="signin_section">
@@ -79,9 +95,6 @@ export default function SignUp() {
                     <button className="signin_btn signin_btn-gradient-border signin_btn_glow ">
                         Submit
                     </button>
-                    {/* <button className="signin_btn signin_btn-gradient-border signin_btn_glow ">
-                        Google
-                    </button> */}
                     <OAuth />
                 </form>
                 <p>

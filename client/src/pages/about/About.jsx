@@ -1,5 +1,5 @@
-import React from 'react'
-import './About.scss'
+import React from "react";
+import "./About.scss";
 
 export default function About() {
   return (
@@ -28,8 +28,22 @@ export default function About() {
               Google login integration.
             </li>
           </ul>
+
+          <p>
+            Error handling is a critical aspect of the project, ensuring that
+            any unexpected errors or exceptions are gracefully managed and
+            communicated to the user. This includes handling authentication
+            errors, database errors, and any other potential issues that may
+            arise during the application's operation.
+          </p>
+
+          <p>
+            Overall, the MERN authentication project with Firebase Google login
+            provides a secure, scalable, and customizable solution for
+            implementing user authentication in web applications.
+          </p>
         </div>
       </section>
     </main>
-  )
+  );
 }

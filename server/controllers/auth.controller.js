@@ -32,7 +32,7 @@ export const singUp = async (req, res, next) => {
                 message: "Username already exists."
             });
         }
-        // For other errors, pass to error handler middleware
+        // middleware for for other error
         next(error);
     }
 };
@@ -53,10 +53,8 @@ export const singIn = async (req, res, next) => {
             httpOnly: true,
             expiries : expiryDate
         })
-        .status(200).json({
-            message : "Log in successfully",
-            rest
-        })
+        .status(200)
+        .json(rest)
     } catch (error) {
         next(error)
     }

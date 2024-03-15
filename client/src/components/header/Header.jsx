@@ -28,7 +28,11 @@ export default function Header() {
                 <p>About</p>
               </Link>
               <Link className="header_link" to="/profile">
-                <p>Profile</p>
+                <img src={currentUser.profilePicture} alt="profile" style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50px",
+                }} />
               </Link>
             </>
           ) : (
