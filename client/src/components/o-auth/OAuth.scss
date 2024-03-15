@@ -1,0 +1,18 @@
+.signin_btn {
+    margin-top: 0.5rem;
+    font-size: 18px;
+    padding: 10px 32px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.signin_btn:hover {
+    transition: all 0.3s ease;
+}
+.signin_btn-gradient-border {
+    color: white;
+    border: 2px double transparent;
+    background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)), radial-gradient(circle at left top, rgb(1, 110, 218), rgb(217, 0, 192));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
